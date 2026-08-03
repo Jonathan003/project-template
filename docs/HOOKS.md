@@ -55,11 +55,13 @@ Three things in that text are the actual result, beyond the prompt appearing.
 It **names the rule that stopped it** — `Bash(git push *)` — so a prompt can be
 traced to the line that caused it rather than guessed at. It says the rule
 **overrides auto mode**, which is the guarantee worth having: the modes that
-skip prompts do not skip this one. And declining is a real outcome — the first
-attempt was answered `No` and the command never ran, leaving the commit local
-(`origin/main` at `e3cddbe`, local `HEAD` at `3ca7e86`, ahead 1). The second was
-answered `Yes` and completed: `e3cddbe..3ca7e86 main -> main`, both refs at
-`3ca7e86` afterwards.
+skip prompts do not skip this one. And not proceeding is a real outcome — the
+first attempt was intercepted and never executed, leaving the commit local
+(`origin/main` at `e3cddbe`, local `HEAD` at `3ca7e86`, ahead 1). Which answer
+ended it is not recorded, because it cannot be told apart from here: `No` and
+`Esc to cancel` are separate options in the dialog and reach the agent as the
+same rejection. The second attempt was answered `1. Yes` and completed:
+`e3cddbe..3ca7e86 main -> main`, both refs at `3ca7e86` afterwards.
 
 The third attempt is the one that settles the shape of the guard. It was a
 **no-op** — everything was already pushed — and it prompted anyway, and it
@@ -68,10 +70,13 @@ matches the command string, not the outcome, and an approval is not remembered:
 it asks every time. That is the behaviour to want here. A guard that stops
 asking after the first yes is a guard that is loudest when the risk is lowest.
 
-**Not verified:** that an unrelated git command passes without a prompt. The
-negative half of the test has not been run, so what is shown is that pushes are
-caught, not that nothing else is. Worth one `git status` to confirm the rule is
-narrow.
+**The negative half, same day and version:** `git status` on this repository ran
+straight through with no prompt, returning `On branch main`, `ahead of
+'origin/main' by 1 commit`, `working tree clean`. So the rule is narrow — it
+catches pushes without catching git in general. Run it after any change to the
+rule, and run it in the same session as the positive test: a `git status` from
+before the workspace was trusted proves nothing, since at that point no rule
+could have fired for any command.
 
 If the prompt does not appear at all, the first thing to check is not the file.
 See `docs/PITFALLS.md` entry 1: an untrusted workspace loads nothing under

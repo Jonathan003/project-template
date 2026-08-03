@@ -1,12 +1,10 @@
 # Working with the agent
 
-For you, not for Claude. How to drive a session. What Claude does is in
-`CLAUDE.md` — this is the other side of the same arrangement.
-
-**The division of labour:** you decide what the project should do and you run
-the finished programs yourself. Claude is your hands for everything else —
-writing the code, running the checks, reading the output. You never need to type
-a git or terminal command.
+For you, not for Claude — how to drive a session. What Claude does is in
+`CLAUDE.md`; this is the other side of it. **The division of labour:** you
+decide what the project should do and you run the finished programs yourself.
+Claude is your hands for everything else, and you never need to type a git or
+terminal command.
 
 ## Three kinds of request
 
@@ -34,17 +32,25 @@ you approve a plan.
 If you do not say, Claude should assume tier 2 for work and tier 1 for anything
 that touches the outside world.
 
+## Starting something big
+
+Do not write the spec yourself. Say what you want in a sentence, then ask to be
+interviewed: *"interview me in detail with the AskUserQuestion tool — the hard
+parts I might not have considered, edge cases, tradeoffs, what happens when it
+goes wrong. Keep going until we have covered it, then write the spec to
+`SPEC.md`."* Then **start a fresh session** and point it at `SPEC.md`: it spends
+its whole attention on building rather than on the conversation that produced
+the spec, and you have something written to hold the result against.
+
 ## Handing over a batch
 
 When you are going to be away, put several tasks in **one message**, in the
 order you want them, and say which are tier 1. Claude works down the list and
-stops at the first tier-1 item, with everything before it finished. That is far
-better than one task at a time — a session that finishes in ten minutes and then
-waits four hours for you is four hours wasted.
+stops at the first tier-1 item, with everything before it finished.
 
-Say "do not stop to ask" explicitly if you want the batch finished under stated
-assumptions rather than paused. And say what to do with anything found along the
-way — the default is that it goes to `docs/BACKLOG.md` rather than getting fixed.
+Say "do not stop to ask" if you want the batch finished under stated assumptions
+rather than paused. And say what to do with anything found along the way — the
+default is `docs/BACKLOG.md`, not a fix.
 
 ## When to start a second session
 

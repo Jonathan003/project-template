@@ -31,14 +31,7 @@ is not a rule; anything longer belongs in `docs/`.
 - **Say what you did not verify.** Explicitly, in the same breath as what you did.
 - **One command runs every check, and this project names it here:**
 
-  > **Check command:** _(none yet — fill this in the day it exists)_
-
-  Whatever suits the language: an `npm` script, a task-runner target, a shell
-  script. Add it at whichever of these comes first:
-  - **At the first bug fix** — a bug that happened once can happen again, and
-    that is the first moment there is behaviour worth pinning.
-  - **Before the program is first used for real** — a release, a deploy, or
-    handing it to someone else. A project without bugs still needs this.
+  > **Check command:** _(none yet — `README.md` says when it gets filled in)_
 
   Before then there is nothing to check and a green run would mean nothing.
   Once it exists, run it before every commit and say so in the commit.

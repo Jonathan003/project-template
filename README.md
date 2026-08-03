@@ -30,9 +30,14 @@ If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
 ## Two blanks to fill in on day one
 
 - **`CLAUDE.md` → "Check command"** — the one command that runs every check.
-  It is empty on purpose: a new project has nothing to check yet, and a check
+  It is empty on purpose: a new project has nothing to *pin* yet, and a check
   that always passes teaches you to trust a green light that means nothing.
-  It gets filled in at the first bug fix.
+  Whatever suits the language — an `npm` script, a task-runner target, a shell
+  script. Fill it in at whichever of these comes first:
+  - **the first bug fix** — a bug that happened once can happen again, and that
+    is the first moment there is behaviour worth pinning;
+  - **before the program is first used for real** — a release, a deploy, or
+    handing it to someone else. A project without bugs still needs this.
 - **`.gitignore`** — it carries optional blocks for common stacks. Keep the one
   that matches this project, delete the rest.
 

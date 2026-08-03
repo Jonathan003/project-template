@@ -14,6 +14,12 @@ right, a check that passed while the thing it protected was broken, a step that
 silently did nothing. A loud failure — a crash, a missing file, a visible error —
 does not need an entry; it announces itself.
 
+Claude also keeps machine-local notes of its own, outside git, readable with
+`/memory`. **Those are not the record.** Anything that earns a number belongs in
+this file, in the repository, even when it was first noticed in a note —
+otherwise the knowledge accumulates where nobody reads it and this file stays
+empty while looking maintained.
+
 ## Numbering
 
 Entries are numbered in the order they were recorded, and **a number is

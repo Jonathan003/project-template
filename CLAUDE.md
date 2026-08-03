@@ -45,14 +45,9 @@ is not a rule; anything longer belongs in `docs/`.
 
 ## Working with the owner
 
-- The owner has **no programming background**. He runs the finished programs
-  himself; you write and run the code and the checks.
-- **Explain choices in plain terms, and always include a recommendation.**
-- **Echo, do not ask.** Show what a step is about to use — full path, and date
-  where it matters — at the moment he confirms it. Add a typed confirmation only
-  where an action cannot be undone. A confirmation at every step trains him to
-  press Enter through all of them, including the one that matters.
-- **Never print or commit secrets** — tokens, keys, passwords. See `.gitignore`.
+See the **user-level `CLAUDE.md`** — how the owner works, and how much to do
+before checking with him, applies to every project and lives there. This file is
+only for what is specific to *this* project.
 
 ## Where things go
 

@@ -1,53 +1,48 @@
 # Project Template
 
-Personal template for new software projects. Provides a starting structure with conventions for commit messages and design-decision documentation.
+The starting point for a new project. Language-neutral — web, desktop, a script,
+anything. Nothing here assumes a particular stack.
 
-## How to use this template
+## Starting a new project
 
-When starting a new project on GitHub:
+1. On GitHub, click **"Use this template"** → **"Create a new repository"**
+2. Name it
+3. Open a Claude Code session in it and say what you want to build
 
-1. Click the green **"Use this template"** button at the top of this page → **"Create a new repository"**
-2. Name your new repository
-3. Clone it locally and start coding
+Claude does the rest of the setup: cloning, wiring, and filling in the two
+blanks below. You do not need to run git or terminal commands yourself.
 
-The new repository will have all the structure below, ready to go.
+## What is here, and who it is for
 
-## What's included
+| File | For | Holds |
+|---|---|---|
+| `CLAUDE.md` | Claude | The working rules. Read every session, applied every turn |
+| `docs/WORKING_WITH_THE_AGENT.md` | **You** | How to drive a session — what to hand over, what to check |
+| `STANDARDS.md` | Claude | How to write a commit and an ADR |
+| `docs/PITFALLS.md` | Claude | Failure modes that have already bitten *this* project |
+| `docs/BACKLOG.md` | Both | Known problems, deliberately not fixed yet, with reasons |
+| `docs/HOOKS.md` | Both | Which rules are worth enforcing mechanically |
+| `hooks/settings.example.json` | Claude | A worked hook example, not active until copied |
+| `docs/adr/` | Both | Why things were decided the way they were |
 
-- **`STANDARDS.md`** — commit message format and design-decision practices
-- **`docs/adr/`** — Architecture Decision Records directory, with template and index
-- **`.gitignore`** — generic ignore patterns for Python and Node.js projects
+If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
 
-## Quick reference
+## Two blanks to fill in on day one
 
-### Commits
+- **`CLAUDE.md` → "Check command"** — the one command that runs every check.
+  It is empty on purpose: a new project has nothing to check yet, and a check
+  that always passes teaches you to trust a green light that means nothing.
+  It gets filled in at the first bug fix.
+- **`.gitignore`** — it carries optional blocks for common stacks. Keep the one
+  that matches this project, delete the rest.
 
-Use Conventional Commits format:
+## What this template is not
 
-```
-type: short description
-```
+It is not a code scaffold. There is no build system, no dependency file, no
+example app — those depend on what you are building, and guessing wrong costs
+more than starting empty.
 
-Common types: `feat`, `fix`, `refactor`, `docs`, `chore`. Full list and examples in `STANDARDS.md`.
-
-### Design decisions
-
-For significant decisions (architectural choices, contested approaches, anything future-you might wonder about), write an ADR:
-
-1. Copy `docs/adr/template.md` to `docs/adr/NNNN-title.md`
-2. Fill in the sections
-3. Add an entry to the index in `docs/adr/README.md`
-
-See `STANDARDS.md` for full guidance.
-
-## Customizing this template for a new project
-
-After creating a new repo from this template, you'll probably want to:
-
-1. **Replace this README** with your project's actual README (installation, usage, etc.)
-2. **Keep `STANDARDS.md`** — or modify it if this project needs different conventions
-3. **Start writing ADRs** in `docs/adr/` as design decisions come up
-
-## Real-world examples
-
-For concrete examples of completed ADRs, see the [BibleBookFinder ADR directory](https://github.com/Jonathan003/BibleBookFinder/tree/main/docs/adr).
+What it does carry is the small set of habits that, in a real project, actually
+caught mistakes: prove a check can fail before trusting it, record measured
+values rather than verdicts, and keep a written record of what has already gone
+wrong so the same surprise does not arrive twice.

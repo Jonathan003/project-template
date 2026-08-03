@@ -13,8 +13,11 @@ that a **permission rule** in `.claude/settings.json` is shorter and stronger:
   whatever a hook returns.
 - It applies in every permission mode, including the ones that skip prompts.
 - It is JSON with no shell in it, so quoting cannot break it.
-- Rules that only *restrict* apply without the workspace trust dialog, so a rule
-  shipped with the project is live in the first session.
+- It is live from the first session — **once the workspace is trusted.** That
+  condition is not an advantage over a hook: until the trust dialog is accepted,
+  nothing under `.claude/` is loaded at all, rules and hooks alike, and nothing
+  says so. See `docs/PITFALLS.md` entry 1, which is what this bullet used to get
+  wrong.
 
 Use `ask` for what you want to be asked about, `deny` for what must never
 happen. A hook earns its place only when the condition is more than a match —
@@ -33,15 +36,48 @@ does not cover the PowerShell tool, and on Windows both tools exist. The
 trailing ` *` enforces a word boundary — it matches `git push` alone and
 `git push origin main`, and not a command that merely starts with those letters.
 
-**Verified:** the file parses as JSON, and the rule is the syntax the permission
-documentation gives for this exact command.
+**Verified — the rule fires.** On 2026-08-03, Claude Code 2.1.220, with both
+rules listed under `/permissions` → Ask, `git push origin main` was attempted
+three times from this repository through the Bash tool. Every attempt prompted.
+The dialog, verbatim:
 
-**Not verified:** that the prompt appears. No push has been attempted here.
-Confirm it once by asking for a push and seeing the prompt, and once by asking
-for an unrelated git command and seeing none. A rule that has been written is
-not a rule that has been shown to fire — the same distinction as proving a check
-can fail. One caveat if it seems not to work: a settings file created inside a
-running session may not be read until the session restarts.
+    Bash command
+      cd "C:/Claude Code/project-template" && git push origin main
+      Push main to origin
+    Ask rule Bash(git push *) overrides auto mode for this command.
+    /permissions to let auto mode decide
+    Do you want to proceed?
+    ❯ 1. Yes
+      2. No
+    Esc to cancel · Tab to amend · ctrl+e to explain
+
+Three things in that text are the actual result, beyond the prompt appearing.
+It **names the rule that stopped it** — `Bash(git push *)` — so a prompt can be
+traced to the line that caused it rather than guessed at. It says the rule
+**overrides auto mode**, which is the guarantee worth having: the modes that
+skip prompts do not skip this one. And declining is a real outcome — the first
+attempt was answered `No` and the command never ran, leaving the commit local
+(`origin/main` at `e3cddbe`, local `HEAD` at `3ca7e86`, ahead 1). The second was
+answered `Yes` and completed: `e3cddbe..3ca7e86 main -> main`, both refs at
+`3ca7e86` afterwards.
+
+The third attempt is the one that settles the shape of the guard. It was a
+**no-op** — everything was already pushed — and it prompted anyway, and it
+prompted **again** after the second attempt had been approved. So the rule
+matches the command string, not the outcome, and an approval is not remembered:
+it asks every time. That is the behaviour to want here. A guard that stops
+asking after the first yes is a guard that is loudest when the risk is lowest.
+
+**Not verified:** that an unrelated git command passes without a prompt. The
+negative half of the test has not been run, so what is shown is that pushes are
+caught, not that nothing else is. Worth one `git status` to confirm the rule is
+narrow.
+
+If the prompt does not appear at all, the first thing to check is not the file.
+See `docs/PITFALLS.md` entry 1: an untrusted workspace loads nothing under
+`.claude/` and says nothing about it, which is exactly how this rule spent its
+first days looking correct and doing nothing. A settings file created inside a
+running session may also not be read until the session restarts.
 
 ## When a rule deserves a hook
 

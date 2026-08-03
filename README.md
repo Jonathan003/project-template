@@ -27,8 +27,15 @@ blanks below. You do not need to run git or terminal commands yourself.
 
 If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
 
-## Two blanks to fill in on day one
+## Three things on day one
 
+- **Accept the trust dialog** the first time you open a session in the new
+  project. A project made from this template ships `.claude/settings.json`, and
+  until the workspace is trusted, nothing under `.claude/` is loaded at all —
+  the permission rules included, with no error to tell you. Confirm it took by
+  running `/permissions` and looking at the **Ask** tab: the two `git push`
+  rules are listed there, or the directory was not read. See
+  `docs/PITFALLS.md` entry 1.
 - **`CLAUDE.md` → "Check command"** — the one command that runs every check.
   It is empty on purpose: a new project has nothing to *pin* yet, and a check
   that always passes teaches you to trust a green light that means nothing.

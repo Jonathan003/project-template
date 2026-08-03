@@ -4,6 +4,45 @@ A rule in `CLAUDE.md` is a sentence the agent reads and applies. A hook is a
 command the harness runs whether or not anyone remembered. They cost different
 things and they fail differently.
 
+## Try a permission rule first
+
+Most of what a hook gets reached for is a plain command or path match, and for
+that a **permission rule** in `.claude/settings.json` is shorter and stronger:
+
+- It is evaluated ahead of hook output — a matching `deny` or `ask` rule holds
+  whatever a hook returns.
+- It applies in every permission mode, including the ones that skip prompts.
+- It is JSON with no shell in it, so quoting cannot break it.
+- Rules that only *restrict* apply without the workspace trust dialog, so a rule
+  shipped with the project is live in the first session.
+
+Use `ask` for what you want to be asked about, `deny` for what must never
+happen. A hook earns its place only when the condition is more than a match —
+running a command, reading a file, judging from context.
+
+## What is shipped
+
+`.claude/settings.json` carries one rule, in the two forms this machine needs:
+
+    "ask": ["Bash(git push *)", "PowerShell(git push *)"]
+
+Pushing is the owner's decision, so it **asks** rather than denies: a deny rule
+cannot be answered, and the owner would have to have the settings edited before
+any push could happen at all. It is written twice because a `Bash(...)` rule
+does not cover the PowerShell tool, and on Windows both tools exist. The
+trailing ` *` enforces a word boundary — it matches `git push` alone and
+`git push origin main`, and not a command that merely starts with those letters.
+
+**Verified:** the file parses as JSON, and the rule is the syntax the permission
+documentation gives for this exact command.
+
+**Not verified:** that the prompt appears. No push has been attempted here.
+Confirm it once by asking for a push and seeing the prompt, and once by asking
+for an unrelated git command and seeing none. A rule that has been written is
+not a rule that has been shown to fire — the same distinction as proving a check
+can fail. One caveat if it seems not to work: a settings file created inside a
+running session may not be read until the session restarts.
+
 ## When a rule deserves a hook
 
 All three have to hold:
@@ -22,48 +61,14 @@ rule in step failed anyway, and the drift went unnoticed for eleven days:
 
 ## Which of this template's rules qualify
 
-| Rule | Hook? | Why |
+| Rule | Mechanism | Why |
 |---|---|---|
-| Do not push without being asked | **Yes** | Always true, easy to forget, outward-facing and awkward to undo. This is the worked example |
-| Never commit a secret | **Yes, eventually** | Always true and expensive — but `.gitignore` already covers the known cases, so add the hook when a real credentials file appears, matching its real name |
-| Run the check command before committing | **Yes, once it exists** | Always true, easy to skip — but useless before there is a check command, so it is a placeholder |
-| Prove every check can fail | **No** | Requires judgement about what "the behaviour it protects" is. Not mechanically decidable |
-| Write the values, not the verdict | **No** | Same reason. A hook cannot tell evidence from assertion |
-| One change at a time | **No** | "One change" is a judgement call, and a wrong block here would be constant |
+| Do not push without being asked | **Permission rule** | A plain command match, so a rule beats a hook. Shipped and live |
+| Never commit a secret | **Hook, eventually** | Always true and expensive — but `.gitignore` already covers the known cases, so add the hook when a real credentials file appears, matching its real name |
+| Run the check command before committing | **Hook, once it exists** | Always true, easy to skip, and more than a match — it runs a command. Useless before that command exists |
+| Prove every check can fail | **Prose** | Requires judgement about what "the behaviour it protects" is. Not mechanically decidable |
+| Write the values, not the verdict | **Prose** | Same reason. Nothing mechanical can tell evidence from assertion |
+| One change at a time | **Prose** | "One change" is a judgement call, and a wrong block here would be constant |
 
-The pattern: hooks are for **facts** (this command, this path, this filename).
-Rules that need judgement stay in `CLAUDE.md`, where judgement is available.
-
-## The example file
-
-`hooks/settings.example.json` is **inert** — nothing in `hooks/` is read by
-anything. To activate it, copy the `hooks` key into `.claude/settings.json` and
-delete every key whose name starts with an underscore.
-
-It contains exactly one complete, working entry: a `PreToolUse` hook on `Bash`
-that refuses `git push`. It uses the `if` field (`"Bash(git push*)"`) so the
-command only runs on a matching call, and returns a `permissionDecision` of
-`deny` with a reason the agent sees.
-
-Everything else lives under `_PLACEHOLDERS_DELETE_THIS_WHOLE_KEY` and is
-deliberately non-functional: each contains a literal `FILL_IN_...` that must be
-replaced first. **Do not copy a placeholder without filling it in** — a hook
-pointing at a command that does not exist fails on every matching tool call.
-
-## What was verified, and what was not
-
-- **Verified:** the file parses as JSON; the deny-command emits valid JSON under
-  both bash and PowerShell; and the command, extracted back out of the JSON
-  after escaping, still produces `permissionDecision: deny`.
-- **Not verified:** that the hook fires. It has never been installed in this
-  repository — that would mean creating `.claude/settings.json`, which the
-  template deliberately does not ship.
-
-That distinction is the point of the rule about proving a check can fail: a hook
-that has been written is not a hook that has been shown to run. When you do
-activate it, confirm it by attempting the thing it should block **once**, and by
-confirming an unrelated command still passes.
-
-One caveat if it appears not to work: the settings watcher only picks up
-`.claude/` if a settings file was present when the session started. Opening
-`/hooks` once, or restarting the session, reloads it.
+The pattern: **matches become rules, procedures become hooks, judgement stays in
+`CLAUDE.md`** — where judgement is available.

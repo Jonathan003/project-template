@@ -22,7 +22,7 @@ blanks below. You do not need to run git or terminal commands yourself.
 | `docs/PITFALLS.md` | Claude | Failure modes that have already bitten *this* project |
 | `docs/BACKLOG.md` | Both | Known problems, deliberately not fixed yet, with reasons |
 | `docs/HOOKS.md` | Both | Which rules are worth enforcing mechanically |
-| `hooks/settings.example.json` | Claude | A worked hook example, not active until copied |
+| `.claude/settings.json` | Claude | Permission rules. Live from the first session |
 | `docs/adr/` | Both | Why things were decided the way they were |
 
 If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.

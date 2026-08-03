@@ -38,11 +38,8 @@ is not a rule; anything longer belongs in `docs/`.
   command, not the verifying. Once it exists, run it before every commit and
   say so in the commit.
 
-## Working with the owner
-
-See the **user-level `CLAUDE.md`** — how the owner works, and how much to do
-before checking with him, applies to every project and lives there. This file is
-only for what is specific to *this* project.
+<!-- How the owner works lives in the user-level CLAUDE.md, which loads before
+     this file every session. Repeating it here would only be read twice. -->
 
 ## Design
 

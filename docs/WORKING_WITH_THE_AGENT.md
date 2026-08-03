@@ -52,6 +52,23 @@ Say "do not stop to ask" if you want the batch finished under stated assumptions
 rather than paused. And say what to do with anything found along the way — the
 default is `docs/BACKLOG.md`, not a fix.
 
+## When to start a second session
+
+Start a separate one when the work is **genuinely independent** — a different
+part of the project, or a long investigation you do not want in the way of
+ordinary work. Two sessions editing the same files at the same time will
+conflict, and neither will know.
+
+Good second session: "read the whole project and tell me what is fragile."
+Bad second session: anything touching files the first one is editing.
+
+**If the second session is for reviewing rather than building, say so in its
+opening prompt — it is read-only, it must not edit or commit.** A reviewing
+session that quietly starts fixing what it found is the conflict this section
+exists to prevent, and one sentence is cheaper than any other way of avoiding
+it. Put that session in **plan mode** (Shift+Tab) as well and the rule is
+enforced rather than requested.
+
 ## If you set up a repeating or self-driving task
 
 Give it a **stop condition that names the check that must pass**, never the

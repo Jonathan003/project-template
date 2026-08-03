@@ -34,10 +34,14 @@ is not a rule; anything longer belongs in `docs/`.
   > **Check command:** _(none yet — fill this in the day it exists)_
 
   Whatever suits the language: an `npm` script, a task-runner target, a shell
-  script. Add it **at the first bug fix** — a bug that happened once can happen
-  again, and that is the first moment there is behaviour worth pinning. Before
-  then there is nothing to check and a green run would mean nothing. Once it
-  exists, run it before every commit and say so in the commit.
+  script. Add it at whichever of these comes first:
+  - **At the first bug fix** — a bug that happened once can happen again, and
+    that is the first moment there is behaviour worth pinning.
+  - **Before the program is first used for real** — a release, a deploy, or
+    handing it to someone else. A project without bugs still needs this.
+
+  Before then there is nothing to check and a green run would mean nothing.
+  Once it exists, run it before every commit and say so in the commit.
 
 ## Working with the owner
 

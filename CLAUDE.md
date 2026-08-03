@@ -49,6 +49,16 @@ See the **user-level `CLAUDE.md`** — how the owner works, and how much to do
 before checking with him, applies to every project and lives there. This file is
 only for what is specific to *this* project.
 
+## Design
+
+- **Show what an action is about to use** — the full path, and the date where it
+  matters — at the moment the user confirms it. Reserve a typed confirmation for
+  what cannot be undone: a confirmation on every step trains the user to click
+  through the one that matters.
+- **Never commit a secret.** A token, key or password goes into `.gitignore`
+  *before* the file holding it is created, never after. See `docs/HOOKS.md` —
+  this is a fact rather than a judgement, so it is a hook candidate.
+
 ## Where things go
 
 | File | Holds |

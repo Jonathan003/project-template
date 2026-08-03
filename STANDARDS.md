@@ -1,84 +1,65 @@
 # Project Standards
 
-Conventions used in this project for commit messages and design decisions.
+How to write a commit and an ADR. Working rules live in `CLAUDE.md`.
 
 ## Commit messages
 
-Use Conventional Commits format:
+One clear sentence saying **what changed and why**, then a body when there is
+more to say. Prefixes like `feat:` / `fix:` are fine if you want them; they are
+a sorting aid, not a safety practice, so nothing here depends on them.
 
-```
-type: short imperative description
-```
+The body is the part that matters. It should say:
 
-### Types
+- what changed, and why it was worth changing
+- **what was verified, with the values** — counts, sizes, hashes, timings, and
+  what the run was configured with (`CLAUDE.md`, "write the values")
+- **what was deliberately not done**, and why
+- anything found along the way that was left alone (and whether it has ever
+  actually happened — see `docs/BACKLOG.md`)
 
-- **`feat:`** new feature for users
-- **`fix:`** bug fix
-- **`refactor:`** code restructure without behavior change
-- **`docs:`** documentation only
-- **`chore:`** maintenance, dependencies, build config
-- **`style:`** formatting, whitespace (no logic change)
-- **`perf:`** performance optimization
-- **`test:`** adding or fixing tests
-
-### Format rules
-
-- First line: max ~70 characters
-- Imperative mood ("add" not "added", "fix" not "fixed")
-- Lowercase after the colon, no period at end
-- For breaking changes, add `!` before the colon: `feat!: change API shape`
-
-### Examples
-
-```
-feat: add user authentication
-fix: prevent crash when input is empty
-refactor: extract validation logic into helper
-docs: update README installation steps
-chore: bump dependencies
-```
-
-For longer commits, add a blank line and a body:
-
-```
-fix: prevent crash when input is empty
-
-The InputField component was calling .trim() on a possibly-null
-value. Added defensive null check before processing.
-```
+A body that says "verified, all good" records nothing. A body that says
+"4 files unchanged, 3,304,641 B, zero network calls" can be checked later.
 
 ## Design decisions: ADRs
 
-For significant design decisions, write an Architecture Decision Record (ADR) in `docs/adr/`.
+Write an Architecture Decision Record in `docs/adr/` when a decision is:
 
-### When to write one
+- **Significant** — it affects structure, behaviour, or how the owner works
+- **Debatable** — more than one reasonable approach existed
+- **Likely to be questioned later** — by you, or by a future session
 
-Write an ADR when a decision is:
+Skip them for routine fixes and obvious choices. Write as many as the project
+actually generates: a busy month can produce a dozen, a quiet one none. Do not
+ration them against a quota.
 
-- **Significant** — affects architecture, user interaction, or major code structure
-- **Debatable** — multiple reasonable approaches exist
-- **Likely to be questioned later** — by future-you or by someone else reading the code
+### How
 
-Skip ADRs for routine bug fixes, cleanup, or obvious choices. Use commit messages for those.
+1. Copy `docs/adr/template.md` to `docs/adr/NNNN-short-title.md`
+2. Fill it in — including the alternatives that were genuinely weighed, and the
+   reasoning that was actually persuasive, not just the conclusion
+3. Add a row to the index in `docs/adr/README.md`
+4. Commit it
 
-Realistic frequency: 1-2 ADRs per month for an actively maintained project. Not every commit, not every refactor.
+### Status: Proposed until the work has shipped
 
-### How to write one
+An ADR has two statuses: **Proposed** and **Accepted**.
 
-1. Copy `docs/adr/template.md` to `docs/adr/NNNN-title.md` (NNNN = next sequential number, zero-padded to 4 digits)
-2. Fill in: Status, Context, Decision, Alternatives Considered, Consequences, Review Trigger
-3. Add an entry to the index in `docs/adr/README.md`
-4. Commit with a `docs:` prefix: `docs: add ADR NNNN for [topic]`
+**An ADR covering work still in flight stays Proposed until that work has
+shipped and been verified.** Write it early if it helps you think — that is
+often its best use — but flip it to Accepted only in the last commit of the
+span, once the checks pass and the result has been looked at.
 
-### Status meanings
+This is the rule that matters most here. A record accepted at the *start* of a
+span describes a plan, and the plan then moves while the record does not. In the
+project this template is drawn from, exactly that happened: an ADR was marked
+Accepted in the first commit of its span, and ten commits later five of its
+sentences were untrue — three of them in the Decision.
 
-- **Proposed** — under discussion, not yet decided
-- **Accepted** — currently in effect
-- **Deprecated** — no longer relevant but not replaced
-- **Superseded by ADR-NNNN** — replaced by a newer ADR
+### Changing an ADR
 
-ADRs are **never edited** after Acceptance. If a decision changes, write a new ADR that supersedes the old one (link both ways).
+Prefer a **new ADR that supersedes the old one**, linked both ways, with the
+index row updated. That keeps the reasoning of both.
 
-### Real-world examples
-
-See [BibleBookFinder's ADRs](https://github.com/Jonathan003/BibleBookFinder/tree/main/docs/adr) for concrete examples of completed ADRs.
+When a record is simply *wrong* — it states something that was never true — fix
+it in place and add a dated note in its Status section saying what was corrected
+and why. An inaccurate permanent record is worth less than an edited one.

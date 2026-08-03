@@ -2,47 +2,53 @@
 
 ## Status
 
-[Proposed | Accepted | Deprecated | Superseded by ADR-NNNN]
+[Proposed | Accepted]
 
 Date: YYYY-MM-DD
 
+Stays **Proposed** while the work it describes is still in flight. Flip to
+**Accepted** in the last commit of the span, once the checks pass and the result
+has been checked. See `STANDARDS.md`.
+
 ## Context
 
-What problem or situation prompted this decision? What were the constraints, requirements, or competing forces at play?
+What problem or situation prompted this decision? What were the constraints,
+requirements, or competing forces at play?
 
-Keep this section focused on facts and the situation as it was. Avoid pre-judging the outcome.
+Facts and the situation as it was. Avoid pre-judging the outcome.
 
 ## Decision
 
-What did we decide? State the chosen approach clearly and concisely.
+What was decided. State the chosen approach clearly and concisely.
 
 ## Alternatives Considered
 
-For each serious alternative:
+For each alternative that was genuinely weighed:
 
-- **Option name** — brief description. Why not chosen.
+- **Option name** — what it was, and why it was not chosen.
 
-Include only options that were actually weighed.
+Include only options actually considered. If an option was rejected because of
+how a person would really behave rather than because it would not work, say so —
+that is usually the reasoning worth keeping.
 
 ## Consequences
 
 ### Positive
 
-- What does this enable?
-- What problem does it solve?
+- What does this enable? What problem does it solve?
 
 ### Negative
 
-- What does this constrain?
-- What new problems does it introduce?
+- What does this constrain? What new problems does it introduce?
+
+State the real ones, not the flattering ones.
 
 ## Review Trigger
 
-What would cause us to reopen this decision?
+What would cause this decision to be reopened? Name a condition, not a feeling.
 
-- "If user feedback shows X"
-- "If performance drops below Y"
-- "If the industry standard shifts toward Z"
+- "If X ever needs to Y"
+- "If the second project of this kind appears"
 
 ## Related
 

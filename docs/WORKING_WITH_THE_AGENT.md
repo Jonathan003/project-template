@@ -10,13 +10,15 @@ a git or terminal command.
 
 ## Three kinds of request
 
-Say which one you mean, and a session stops feeling unpredictable.
+Say which one you mean, and a session stops feeling unpredictable. Two of the
+three also have a switch, so you do not have to keep saying it.
 
 **Tier 1 — irreversible, or it changes what the program produces.**
 Deleting data, publishing, pushing to GitHub, changing how output is generated,
 anything you cannot simply undo. *Ask for a plan and expect Claude to stop.*
-You read the plan and say go. The cost of a wrong tier-1 action is real, so the
-pause is worth it every time.
+You read the plan and say go. For a specific command you always want to be
+asked about, an `ask` rule in `.claude/settings.json` makes the pause automatic
+and unforgettable — `git push` already has one. See `docs/HOOKS.md`.
 
 **Tier 2 — reversible, and something would catch a mistake.**
 Ordinary feature work and bug fixes in a project under version control.
@@ -25,7 +27,9 @@ work buys you nothing here — git is the undo button, and the checks are the ne
 
 **Tier 3 — read-only.**
 "What does this do?", "is X handled?", "find where Y happens". *Just ask.*
-No plan, no confirmation. Nothing changes.
+Press **Shift+Tab** for **plan mode** and tier 3 stops depending on either of us
+remembering: Claude can read, search and plan, but cannot edit anything until
+you approve a plan.
 
 If you do not say, Claude should assume tier 2 for work and tier 1 for anything
 that touches the outside world.
@@ -55,14 +59,12 @@ Bad second session: anything touching files the first one is editing.
 ## If you set up a repeating or self-driving task
 
 Give it a **stop condition that names the check that must pass**, never the
-outcome you want to be true.
+outcome you want to be true. "Until the check command passes with no failures"
+can be evaluated; "until the app works properly" cannot, so a loop given it
+either stops on the first thing that looks fine or never stops at all.
 
-- Good: *"keep going until the check command passes with no failures."*
-- Bad: *"keep going until the app works properly."*
-
-"Works properly" cannot be evaluated, so a loop given that condition either
-stops on the first thing that looks fine or never stops at all. A named check
-either passes or it does not.
+**`/goal <condition>`** is that as a feature: a separate evaluator re-checks the
+condition after every turn and the session keeps working until it holds.
 
 ## What to expect back
 

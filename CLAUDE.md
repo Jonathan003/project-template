@@ -24,10 +24,10 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
   sizes, hashes, status codes, what the screen showed, and how the run was
   configured are evidence. Repeat a baseline's values rather than pointing at
   them — a pointer cannot be checked, and rots when its input is deleted.
-- **Verify through the real entry point.** Calling a function proves the
-  function works, never that it is reached. For anything triggered by an event
-  the program does not raise itself — a keystroke, a signal, a timeout, a crash
-  — produce the real event, through the way the program is really started.
+- **Verify through the real entry point.** Calling a function proves it works,
+  never that it is reached. For anything triggered by an event the program does
+  not raise itself — a keystroke, a click, a route change, a failed request, a
+  timeout, a crash — produce the real event, through how it is really started.
 - **Say what you did not verify.** Explicitly, in the same breath as what you did.
 - **One command runs every check, and this project names it here:**
 
@@ -39,10 +39,10 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
 
 ## Design
 
-- **Show what an action is about to use** — the full path, and the date where it
-  matters — at the moment the user confirms it. Reserve a typed confirmation for
-  what cannot be undone: a confirmation on every step trains the user to click
-  through the one that matters.
+- **Show what an action is about to use** — the full path, the account, the
+  environment, the record, and the date where it matters — at the moment the
+  user confirms it. Reserve a typed confirmation for what cannot be undone: a
+  prompt on every step trains the user to click through the one that matters.
 - **Never commit a secret.** A token, key or password goes into `.gitignore`
   *before* the file holding it is created, never after. See `docs/HOOKS.md` —
   this is a fact rather than a judgement, so it is a hook candidate.

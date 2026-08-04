@@ -1,7 +1,7 @@
 # CLAUDE.md — Working rules for this project
 
-Rules that always apply. **Keep this file under 60 lines.** A rule nobody reads
-is not a rule; anything longer belongs in `docs/`.
+Rules that always apply. **Keep this file under 60 lines, blanks included.** A
+rule nobody reads is not a rule; anything longer belongs in `docs/`.
 
 ## Working
 
@@ -34,12 +34,8 @@ is not a rule; anything longer belongs in `docs/`.
   > **Check command:** _(none yet — `README.md` says when it gets filled in)_
 
   Until it exists, verification is per-task and still required — the real entry
-  point, the real event, the values. What is deferred is the single named
-  command, not the verifying. Once it exists, run it before every commit and
-  say so in the commit.
-
-<!-- How the owner works lives in the user-level CLAUDE.md, which loads before
-     this file every session. Repeating it here would only be read twice. -->
+  point, the real event, the values. What is deferred is the command, not the
+  verifying. Once it exists, run it before every commit and say so in the commit.
 
 ## Design
 

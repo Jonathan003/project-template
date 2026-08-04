@@ -18,6 +18,7 @@ blanks below. You do not need to run git or terminal commands yourself.
 |---|---|---|
 | `CLAUDE.md` | Claude | The working rules. Read every session, applied every turn |
 | `docs/WORKING_WITH_THE_AGENT.md` | **You** | How to drive a session — what to hand over, what to check |
+| `docs/USER_CLAUDE_MD.md` | **You** | A copy of your machine-wide rules file, which no repository carries |
 | `STANDARDS.md` | Claude | How to write a commit and an ADR |
 | `docs/PITFALLS.md` | Claude | Failure modes that have already bitten *this* project |
 | `docs/BACKLOG.md` | Both | Known problems, deliberately not fixed yet, with reasons |
@@ -30,12 +31,14 @@ If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
 ## Three things on day one
 
 - **Accept the trust dialog** the first time you open a session in the new
-  project. A project made from this template ships `.claude/settings.json`, and
-  until the workspace is trusted, nothing under `.claude/` is loaded at all —
-  the permission rules included, with no error to tell you. Confirm it took by
-  running `/permissions` and looking at the **Ask** tab: the two `git push`
-  rules are listed there, or the directory was not read. See
-  `docs/PITFALLS.md` entry 1.
+  project — and again on every machine, and in every folder, you ever open it
+  in. The answer is stored on the machine, keyed by folder path; it is not in
+  the repository and pushing does not carry it. A project made from this
+  template ships `.claude/settings.json`, and until the workspace is trusted,
+  nothing under `.claude/` is loaded at all — the permission rules included,
+  with no error to tell you. Confirm it took by running `/permissions` and
+  looking at the **Ask** tab: the two `git push` rules are listed there, or the
+  directory was not read. See `docs/PITFALLS.md` entry 1.
 - **`CLAUDE.md` → "Check command"** — the one command that runs every check.
   It is empty on purpose: a new project has nothing to *pin* yet, and a check
   that always passes teaches you to trust a green light that means nothing.
@@ -47,6 +50,21 @@ If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
     handing it to someone else. A project without bugs still needs this.
 - **`.gitignore`** — it carries optional blocks for common stacks. Keep the one
   that matches this project, delete the rest.
+
+## On a new machine
+
+Two of the things a session depends on are stored on the machine rather than in
+git, so a second PC starts without them **even when everything has been pushed**
+— and neither announces its absence.
+
+- **The trust dialog answer.** A fresh clone, or the same project opened from a
+  different folder, asks again, and until it is accepted the shipped `git push`
+  rules are not live. Day one repeats itself on every machine: same dialog, same
+  `/permissions` check, same `docs/PITFALLS.md` entry 1.
+- **Your user-level `CLAUDE.md`** — the machine-wide rules that say how you work
+  at all. It lives in your home directory, outside every repository, which means
+  no repository can restore it. `docs/USER_CLAUDE_MD.md` keeps a copy and says
+  where the real file goes.
 
 ## What this template is not
 

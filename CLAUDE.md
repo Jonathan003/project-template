@@ -20,10 +20,10 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
   behaviour it protects, confirm the check goes red, restore, and confirm the
   restore. A check that passes against broken code is worse than no check: it
   produces confidence at no cost.
-- **Write the values, not the verdict.** "It works" is a claim; numbers, sizes,
-  hashes, counts, and what the run was configured with are evidence. Repeat a
-  baseline's values rather than pointing at where they were recorded — a pointer
-  cannot be checked by the reader and rots when its input is deleted.
+- **Write the values, not the verdict.** "It works" is a claim; counts, timings,
+  sizes, hashes, status codes, what the screen showed, and how the run was
+  configured are evidence. Repeat a baseline's values rather than pointing at
+  them — a pointer cannot be checked, and rots when its input is deleted.
 - **Verify through the real entry point.** Calling a function proves the
   function works, never that it is reached. For anything triggered by an event
   the program does not raise itself — a keystroke, a signal, a timeout, a crash

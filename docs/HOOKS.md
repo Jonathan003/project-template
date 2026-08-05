@@ -100,6 +100,23 @@ The source project put it best after a comment meant to keep two copies of a
 rule in step failed anyway, and the drift went unnoticed for eleven days:
 **a comment is not a mechanism.** Neither is a sentence in a rules file.
 
+That incident is the reason `CLAUDE.md` carries **name a thing once**, and it is
+worth saying what the rule does *not* ask for. It is not "pin every duplicate".
+The source project deliberately left one name unpinned — a settings filename
+repeated in four places — because that failure is **loud**, and a loud failure
+announces itself without help. The condition is the same one `docs/PITFALLS.md`
+admits entries on: pin it when the drift would be **silent**.
+
+### The pin has a trap of its own
+
+A repo-wide check for a forbidden literal **contains that literal**, in its own
+source or in the comment explaining it, so it finds itself. In the source
+project this was exposed three times in one session. It fails two ways: a pin
+that goes red the moment it is written — annoying but visible — and a pin that
+passes for the wrong reason, which is the vacuous check this whole file is
+about. Exclude the checking file's own path, then break the thing it protects
+and confirm it goes red, or the exclusion becomes the next thing nobody proved.
+
 ## Which of this template's rules qualify
 
 | Rule | Mechanism | Why |
@@ -107,6 +124,7 @@ rule in step failed anyway, and the drift went unnoticed for eleven days:
 | Do not push without being asked | **Permission rule** | A plain command match, so a rule beats a hook. Shipped and live |
 | Never commit a secret | **Hook, eventually** | Always true and expensive — but `.gitignore` already covers the known cases, so add the hook when a real credentials file appears, matching its real name |
 | Run the check command before committing | **Hook, once it exists** | Always true, easy to skip, and more than a match — it runs a command. Useless before that command exists |
+| Name a thing once | **A check** | Neither prose nor a hook. The mechanism is a check inside the check command, which is the only form that outlives the session that wrote it |
 | Prove every check can fail | **Prose** | Requires judgement about what "the behaviour it protects" is. Not mechanically decidable |
 | Write the values, not the verdict | **Prose** | Same reason. Nothing mechanical can tell evidence from assertion |
 | One change at a time | **Prose** | "One change" is a judgement call, and a wrong block here would be constant |

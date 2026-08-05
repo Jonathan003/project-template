@@ -46,6 +46,8 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
 - **Never commit a secret.** A token, key or password goes into `.gitignore`
   *before* the file holding it is created, never after. See `docs/HOOKS.md` —
   this is a fact rather than a judgement, so it is a hook candidate.
+- **Name a thing once.** When a literal reaches a second file and its drift
+  would be silent, pin it with a check, never a comment. See `docs/HOOKS.md`.
 
 ## Where things go
 
@@ -53,7 +55,5 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
 |---|---|
 | `STANDARDS.md` | How to write a commit and an ADR |
 | `docs/PITFALLS.md` | Failure modes that have already bitten — **read before diagnosing anything surprising** |
-| `docs/BACKLOG.md` | Known, understood, deliberately unfixed |
 | `docs/HOOKS.md` | Which rules deserve enforcement instead of prose |
-| `docs/WORKING_WITH_THE_AGENT.md` | For the owner, not for you |
 | `docs/adr/` | Decisions, with the reasoning that was actually persuasive |

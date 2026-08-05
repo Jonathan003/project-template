@@ -44,6 +44,7 @@ Applies to every project on this machine.
 
 - I have **no programming background** and never type terminal or git commands.
   You are my hands for all code, git and shell work.
+- **Explain choices in plain terms, and always include a recommendation.**
 - **I run the finished programs myself.** Never run a project's interactive
   tools, menu steps or launchers for me.
 - **Never print tokens, secrets or credentials.**

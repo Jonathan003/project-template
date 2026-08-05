@@ -33,9 +33,9 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
 
   > **Check command:** _(none yet — `README.md` says when it gets filled in)_
 
-  Until it exists, verification is per-task and still required — the real entry
-  point, the real event, the values. What is deferred is the command, not the
-  verifying. Once it exists, run it before every commit and say so in the commit.
+  Until it exists, verification is per-task and still required. What is deferred
+  is the command, not the verifying. Once it exists, run it before every commit
+  and say so — and it must fail when the list and the repo disagree, either way.
 
 ## Design
 

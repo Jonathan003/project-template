@@ -48,6 +48,15 @@ If you only ever read one of these, read `docs/WORKING_WITH_THE_AGENT.md`.
     is the first moment there is behaviour worth pinning;
   - **before the program is first used for real** — a release, a deploy, or
     handing it to someone else. A project without bugs still needs this.
+
+  It gets one more job at its own trigger — **the second file to gain a check**,
+  because one file cannot disagree with itself. From then on the command must
+  **fail when the list and the repo disagree**, in either direction: a check
+  that exists but is not in the list, or a name in the list with nothing behind
+  it. Both are silent otherwise. The first one is what the project this template
+  came from actually hit — one script's test suite was never added to the list,
+  and it sat red, unseen, across a whole span of commits while the command it
+  was missing from reported green.
 - **`.gitignore`** — it carries optional blocks for common stacks. Keep the one
   that matches this project, delete the rest.
 

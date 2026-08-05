@@ -21,7 +21,7 @@ blanks below. You do not need to run git or terminal commands yourself.
 | `docs/USER_CLAUDE_MD.md` | **You** | A copy of your machine-wide rules file, which no repository carries |
 | `STANDARDS.md` | Claude | How to write a commit and an ADR |
 | `docs/PITFALLS.md` | Claude | Failure modes that have already bitten *this* project |
-| `docs/BACKLOG.md` | Both | Known problems, deliberately not fixed yet, with reasons |
+| `docs/BACKLOG.md` | Both | Known problems, deliberately not fixed yet, with reasons. Here from day one on purpose: an empty backlog invites filling, so the rules against that are written into the file itself |
 | `docs/HOOKS.md` | Both | Which rules are worth enforcing mechanically |
 | `.claude/settings.json` | Claude | Permission rules. Live from the first session |
 | `docs/adr/` | Both | Why things were decided the way they were |

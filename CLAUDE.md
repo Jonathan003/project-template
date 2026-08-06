@@ -55,5 +55,3 @@ rule nobody reads is not a rule; anything longer belongs in `docs/`.
 |---|---|
 | `STANDARDS.md` | How to write a commit and an ADR |
 | `docs/PITFALLS.md` | Failure modes that have already bitten — **read before diagnosing anything surprising** |
-| `docs/HOOKS.md` | Which rules deserve enforcement instead of prose |
-| `docs/adr/` | Decisions, with the reasoning that was actually persuasive |

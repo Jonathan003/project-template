@@ -88,10 +88,39 @@ running session may also not be read until the session restarts.
 
 `Bash(git push *)` and `PowerShell(git push *)` are not two spellings of one
 rule. Each tool is its own permission surface, and a `Bash(...)` rule does not
-match a call made through the PowerShell tool. That second half is **inferred
-from which rule the dialog named, not tested** — confirming it directly means
-deleting the PowerShell entry and retrying the push, which removes a live guard,
-so it has not been run.
+match a call made through the PowerShell tool.
+
+**That second half stands untested — and why it does is worth more than the
+result would have been.** The test *was* performed. On 2026-08-06, Claude Code
+2.1.223, the `PowerShell(git push *)` entry was deleted from
+`.claude/settings.json`, the session restarted so the file would be re-read
+(`docs/PITFALLS.md` entry 1), and `git push origin main` run through the
+PowerShell tool with only the Bash entry in place. Whether a dialog appeared
+*is* the entire result — and nobody read it. The guard was restored the same day
+(`"ask": ["Bash(git push *)", "PowerShell(git push *)"]`, tree clean, local and
+remote both at `ad4be50`), so the run is over and its result exists nowhere.
+
+**It cannot be recovered afterwards, because command output does not carry it.**
+An approved prompt and no prompt at all reach the agent identically: the command
+runs and returns its normal output. Two further pushes from the restored state
+that same day, run specifically to re-observe the dialog, both returned
+`Everything up-to-date` with both refs at `ad4be50` — and went unread as well.
+The reading has to be taken by the person at the keyboard while the dialog is on
+screen. A run whose dialog is not read produces nothing, however carefully it was
+set up. Redoing it therefore costs what it always did: removing the entry again
+and restarting leaves the PowerShell surface genuinely unguarded between the
+edit and the restore, and that hole is the silent kind described below — the
+Bash rule keeps firing for its own tool, so the guard still looks alive.
+
+Note what the witnessed run below *does* and does not settle. It shows the
+PowerShell entry is the one that fires **when both are present**. It cannot show
+what happens when that entry is absent, which is the only question the negative
+test answers. Two further limits, had the reading been taken: the Bash route was
+not re-checked in that session — the Bash entry was left in place and never
+retried — so the run spoke only to the PowerShell surface. And the branch was
+already up to date, making those pushes no-ops; they would have re-shown the
+prompt matching the command string, which the third attempt above already
+establishes, not the guard stopping a push that would really transfer commits.
 
 **Verified — the PowerShell entry is the one that fires on Windows.** On
 2026-08-06, Claude Code 2.1.223, `git push origin main` was run through the

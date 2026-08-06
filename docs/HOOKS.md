@@ -88,7 +88,10 @@ running session may also not be read until the session restarts.
 
 `Bash(git push *)` and `PowerShell(git push *)` are not two spellings of one
 rule. Each tool is its own permission surface, and a `Bash(...)` rule does not
-match a call made through the PowerShell tool.
+match a call made through the PowerShell tool. That second half is **inferred
+from which rule the dialog named, not tested** — confirming it directly means
+deleting the PowerShell entry and retrying the push, which removes a live guard,
+so it has not been run.
 
 **Verified — the PowerShell entry is the one that fires on Windows.** On
 2026-08-06, Claude Code 2.1.223, `git push origin main` was run through the

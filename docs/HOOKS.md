@@ -84,6 +84,41 @@ See `docs/PITFALLS.md` entry 1: an untrusted workspace loads nothing under
 first days looking correct and doing nothing. A settings file created inside a
 running session may also not be read until the session restarts.
 
+### Both entries are load-bearing — do not dedupe them
+
+`Bash(git push *)` and `PowerShell(git push *)` are not two spellings of one
+rule. Each tool is its own permission surface, and a `Bash(...)` rule does not
+match a call made through the PowerShell tool.
+
+**Verified — the PowerShell entry is the one that fires on Windows.** On
+2026-08-06, Claude Code 2.1.223, `git push origin main` was run through the
+**PowerShell** tool from this repository. It prompted, and the dialog named the
+PowerShell entry outright:
+
+    Ask rule PowerShell(git push *) overrides auto mode for this command.
+    Do you want to proceed?
+      1. Yes
+      2. No
+
+Answered `1. Yes`, it completed: `a158eb2..8124312  main -> main`, with
+`git ls-remote origin refs/heads/main` returning
+`81243126697b78722c971c267247cddfd22a6187` afterwards and `git status -sb`
+reading `## main...origin/main` with no ahead marker. The owner reports the same
+result on 2026-08-03 and 2026-08-05. Note that the run recorded above at
+2026-08-03, Claude Code 2.1.220, went through the **Bash** tool and was stopped
+by the Bash entry — so the two halves of this file cover two different tools, on
+purpose.
+
+On Windows both tools exist and either may carry a push. Deleting either entry
+opens a hole on whichever tool loses its rule, and the hole is **silent**: the
+surviving rule keeps firing for its own tool, so the guard still looks alive
+from the outside.
+
+**A future pass applying "name a thing once" must leave these two alone.** This
+is the case that rule does not cover. The two strings are not one name written
+twice — they name two different permission surfaces, and pinning them to each
+other would be pinning together two things that are allowed to differ.
+
 ## When a rule deserves a hook
 
 All three have to hold:

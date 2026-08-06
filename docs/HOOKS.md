@@ -118,9 +118,10 @@ what happens when that entry is absent, which is the only question the negative
 test answers. Two further limits, had the reading been taken: the Bash route was
 not re-checked in that session — the Bash entry was left in place and never
 retried — so the run spoke only to the PowerShell surface. And the branch was
-already up to date, making those pushes no-ops; they would have re-shown the
-prompt matching the command string, which the third attempt above already
-establishes, not the guard stopping a push that would really transfer commits.
+already up to date, making those two pushes no-ops; a reading would have re-shown
+the prompt matching the command string, which the third attempt above already
+establishes, rather than the guard stopping a push with commits behind it. That
+second gap is closed by the fourth run below; the first is not.
 
 **Verified — the PowerShell entry is the one that fires on Windows.** On
 2026-08-06, Claude Code 2.1.223, `git push origin main` was run through the
@@ -140,6 +141,27 @@ result on 2026-08-03 and 2026-08-05. Note that the run recorded above at
 2026-08-03, Claude Code 2.1.220, went through the **Bash** tool and was stopped
 by the Bash entry — so the two halves of this file cover two different tools, on
 purpose.
+
+**Verified — it prompts on a push that really transfers.** Every witnessed
+PowerShell prompt before this one sat in front of a no-op, which left the useful
+case open. On 2026-08-06, Claude Code 2.1.223, commit `d1f321e` — this section's
+own rewrite — was pushed from this repository through the **PowerShell** tool
+with both entries present. It prompted, naming the same entry:
+
+    Ask rule PowerShell(git push *) overrides auto mode for this command.
+
+Answered yes, it completed `ad4be50..d1f321e  main -> main`: a real transfer, not
+`Everything up-to-date`. Afterwards `git ls-remote origin refs/heads/main`
+returned `d1f321e9fb2f7a22d22505c3aa35ac8061dd7855`, and `git status -sb` read
+`## main...origin/main` with no ahead marker.
+
+**How that reading was taken is the reason the three runs before it produced
+nothing.** Clicking *inside* the terminal window to focus it also answers the
+prompt — the click reaches the dialog, which is gone before the line can be read,
+and the command then runs looking exactly like a command that was never guarded.
+Clicking the window's **title bar** focuses the window without reaching the
+dialog, leaving it on screen to be read. That is the whole difference between a
+run that is evidence and a run that is not.
 
 On Windows both tools exist and either may carry a push. Deleting either entry
 opens a hole on whichever tool loses its rule, and the hole is **silent**: the
